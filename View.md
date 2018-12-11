@@ -6,7 +6,11 @@
 
 A document can previewed a number of ways, namely the icon that appears in the top left of an open TeX document (see gif) <img src="https://raw.githubusercontent.com/James-Yu/LaTeX-Workshop/master/icons/view-pdf-light.svg" height="1em">, or by the shortcut <kbd>ctrl</kbd>+<kbd>alt</kbd>+<kbd>v</kbd> or alternatively <kbd>ctrl</kbd>+<kbd>l</kbd> <kbd>alt</kbd>+<kbd>v</kbd> (see also the [FAQ](https://github.com/James-Yu/LaTeX-Workshop/wiki/FAQ#i-cannot-use-ctrlalt-in-a-shortcut)).
 
-## Synctex
+### Keybindings
+
+The PDF viewer provided with extension internally uses [pdf.js](https://github.com/mozilla/pdf.js). The keybindings support by pdf.js are documented [here](https://github.com/mozilla/pdf.js/wiki/Frequently-Asked-Questions#faq-shortcuts).
+
+## SyncTeX
 
 This extension will automatically look for synctex in the expected location (see settings) and will alert the user if it is not found.
 
@@ -24,7 +28,8 @@ This extension will automatically look for synctex in the expected location (see
 | -------------------------------------------------------------------------------------------- | ----------------------------------------- | ------------- | ------------- |
 | [`latex-workshop​.synctex​.afterBuild​.enabled`](#latex-workshopsynctexafterBuildenabled) | Forward synxtex at cursor after compiling | `false`       | _boolean_     |
 | [`latex-workshop​.synctex​.path`](#latex-workshopsynctexpath)                              | SyncTeX location                          | `"synctex"`   | _string_      |
-| [`latex-workshop​.view.pdf​.external​.synctex`](#latex-workshopviewpdfexternalsynctex)   | SyncTeX command for the extenal viewer    | (see details) | _JSON object_ |  |  |
+| [`latex-workshop​.view.pdf​.external​.synctex`](#latex-workshopviewpdfexternalsynctex)   | SyncTeX command for the extenal viewer    | (see details) | _JSON object_ |
+| [`latex-workshop.view.pdf.invert`](#latex-workshopviewpdfinvert) | Define the CSS invert filter level of the PDF viewer. | `0` | _number_ |
 
 ### Details
 
@@ -55,3 +60,10 @@ This function is not officially supported. %LINE% is the line number, %PDF% is t
 | type          | default value                                                          |
 | ------------- | ---------------------------------------------------------------------- |
 | _JSON object_ | `{ "command": "SumatraPDF.exe" "args": ["%LINE%", "%PDF%", "%TEX%"] }` |
+
+#### latex-workshop.view.pdf.invert
+
+Define the CSS invert filter level of the PDF viewer.
+This config can invert the color of PDF. Possible values are from 0 to 1.
+
+<img src="images/viewer_in_invert_mode.png" alt="invert mode" height="300px">
