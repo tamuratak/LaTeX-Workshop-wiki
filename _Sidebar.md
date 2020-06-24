@@ -25,6 +25,7 @@
   - [Internal PDF viewer](View#internal-pdf-viewer)
     - [Invert mode](View#invert-mode)
   - [SyncTeX](View#synctex)
+  - [External PDF viewer](View#external-pdf-viewer)
     - [Using SyncTeX with an external viewer](View#using-synctex-with-an-external-viewer)
 - [Formatting](Format)
   - [LaTeX files](Format#LaTeX-files)
