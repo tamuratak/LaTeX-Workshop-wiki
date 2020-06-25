@@ -1,5 +1,16 @@
 # Compiling features
 
+- [Multi file projects](#Multi-File-Projects)
+- [Building the document](#building-the-document)
+- [Building a `.jnw` file](#building-a-jnw-file)
+- [Building a `.rnw` file](#building-a-rnw-file)
+- [Terminating the current compilation](#terminating-the-current-compilation)
+- [Auto build](#auto-build-latex)
+- [Cleaning generated files](#cleaning-generated-files)
+- [LaTeX recipes](#latex-recipes)
+- [Magic comments](#magic-comments)
+- [Catching errors](#catching-errors-and-warnings)
+
 ## Multi File projects
 
 While it is fine to write all contents in one `.tex` file, it is common to split things up for simplicity. For such LaTeX projects, the file with `\begin{document}` is considered as the root file, which serves as the entry point to the project. LaTeX Workshop intelligently finds the root file when a new document is opened, the active editor is changed, or any LaTeX Workshop command is executed.
@@ -27,7 +38,7 @@ If no root file is found, most of the features in LaTeX Workshop will not work.
 
 Once the root file is determined, it is parsed to discover all the files it includes using `input`, `include`, `InputIfFileExists`, `subfile`, `import` and `subimport` and the process goes on recursively. All these files are called dependencies and are considered to define a LaTeX project. If you include some files located in some external directories, you can list these extra directories in [`latex-workshop.latex.texDirs`](#latex-workshoplatextexDirs).
 
-Moreover, when a `.fls` file with the same basename as the root file exists, it is used to compute the full list of dependencies, ie all classes, packages, fonts, input `.tex` files, listings, graphs, ... All these files are parsed to provide intellisense completion. When  [`latex-workshop.latex.autoBuild.run`](Compile#auto-build-latex) is set to `onFileChange`, building is automatically triggered whenever any of the dependencies is modified.  You can use [`latex-workshop.latex.watch.files.ignore`](#latex-workshoplatexwatchfilesignore) to prevent some files from being watched. The default is to ignore files inside your TeX distribution and files with `.code.tex` or `.sty` suffix.
+Moreover, when a `.fls` file with the same basename as the root file exists, it is used to compute the full list of dependencies, ie all classes, packages, fonts, input `.tex` files, listings, graphs, ... All these files are parsed to provide intellisense completion. When  [`latex-workshop.latex.autoBuild.run`](#auto-build-latex) is set to `onFileChange`, building is automatically triggered whenever any of the dependencies is modified.  You can use [`latex-workshop.latex.watch.files.ignore`](#latex-workshoplatexwatchfilesignore) to prevent some files from being watched. The default is to ignore files inside your TeX distribution and files with `.code.tex` or `.sty` suffix.
 
 ### Relevant settings
 
@@ -314,7 +325,7 @@ A LaTeX recipe refers to a sequence/array of commands which LaTeX Workshop execu
 - The first one simply relies on the `latexmk` command
 - The second one run the following sequence of commands `pdflatex` → `bibtex` → `pdflatex` → `pdflatex`.
 
-```
+```json
 [
   {
     "name": "latexmk 🔃",
@@ -336,7 +347,7 @@ A LaTeX recipe refers to a sequence/array of commands which LaTeX Workshop execu
 
 and each tool appearing in the `tools` field is defined `latex-workshop.latex.tools`. Its default value is given by
 
-```
+```json
 [
   {
     "name": "latexmk",
@@ -377,7 +388,7 @@ You can create multiple recipes with different tools. Each recipe is an object i
 
 The `tools` in recipes can be defined in `latex-workshop.latex.tools`, in which each command is a `tool`. Each tool is an object consisting of a `name`, a `command` to be spawned, its arguments (`args`) and some specific environment variables (`env`). The `env` entry is a dictionary. Imagine you want to use a `texmf` subdirectory local to your home project, just write
 
-```
+```json
   "env": {
       "TEXMFHOME": "%DIR%/texmf"
   }
@@ -389,7 +400,7 @@ To include a tool in a recipe, the tool's `name` should be included in the recip
 
 When building the project, the [magic comments](#magic-comments) in the root file are used if present, otherwise the first recipe is used. You can compile with another recipe by command `latex-workshop.recipes`. By default [`latexmk`](http://personal.psu.edu/jcc8/software/latexmk/) is used. This tool is bundled in most LaTeX distributions, and requires perl to execute. For non-perl users, the following `texify` toolchain from MikTeX may worth a try:
 
-```
+```json
 "latex-workshop.latex.recipes": [{
   "name": "texify",
   "tools": [
@@ -485,7 +496,7 @@ LaTeX Workshop supports `% !TEX program` magic comment to specify the compiler p
 
 For `% !TEX program` magic comment, its arguments are defined in `latex-workshop.latex.magic.args`:
 
-```
+```json
 "latex-workshop.latex.magic.args": [
   "-synctex=1",
   "-interaction=nonstopmode",
@@ -506,7 +517,7 @@ Suppose there is a line `% !TEX program = xelatex` in the root file. Upon buildi
 
 When using `% !TEX program` with bibliographies, a `bib` compiler must be defined with `% !BIB program` comment, e.g., `% !BIB program = bibtex`. Otherwise the extension will only run one-pass compilation with the specified LaTeX compiler. If needed, you can pass extra arguments to the `% !BIB program` using the `latex-workshop.latex.magic.bib.args` variable:
 
-```
+```json
 "latex-workshop.latex.magic.bib.args": [
   "%DOCFILE%"
 ]
