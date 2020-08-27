@@ -213,9 +213,13 @@ vscode sets <kbd>Ctrl</kbd>+<kbd>M</kbd> to `editor.action.toggleTabFocusMode`. 
 
 Please change VS Code theme you are using. For example, **Visual Studio Dark** and **Visual Studio Light** do not work with LaTeX Workshop.
 
-## Install older version
+## Install an older version of LaTeX Workshop
 
 You can install older versions of LaTeX Workshop by right-clicking it in the extension panel of VS Code and selecting `Install Another Version`.
+
+## Donwgrade VS Code to an older version
+
+You can downgrade VS Code to an older version with binaries in [each release note](https://code.visualstudio.com/updates/v1_46).
 
 ## Customizing a Color Theme
 
